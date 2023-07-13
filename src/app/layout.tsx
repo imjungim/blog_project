@@ -1,8 +1,9 @@
 import './globals.css'
+import Link from 'next/link'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Open_Sans } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const sans = Open_Sans({ subsets: ['latin']})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,8 +16,19 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={sans.className}>
+      <body className={sans.className}>
+        <header className='flex justify-between items-center p-8'>
+            <h1 className='font-bold text-lg'>H-Blog</h1>
+            <nav>
+              <Link href="/products" className='px-8'>Home</Link>
+              <Link href="/about" className='px-8'>About</Link>
+              <Link href="/posts" className='px-8'>Posts</Link>
+              <Link href="/contact" className='px-8'>Contact</Link>
+            </nav>
+        </header>
+        {children}
+      </body>
     </html>
   )
 }
