@@ -20,11 +20,11 @@ export default function RootLayout({
       <body className={sans.className}>
         <header className='flex justify-between items-center p-8'>
             <h1 className='font-bold text-lg'>H-Blog</h1>
-            <nav>
-              <Link href="/products" className='px-8'>Home</Link>
-              <Link href="/about" className='px-8'>About</Link>
-              <Link href="/posts" className='px-8'>Posts</Link>
-              <Link href="/contact" className='px-8'>Contact</Link>
+            <nav className=''>
+              <Link href="/" className='p-1.5'>Home</Link>
+              <Link href="/about" className='p-1.5'>About</Link>
+              <Link href="/posts" className='p-1.5'>Posts</Link>
+              <Link href="/contact" className='p-1.5'>Contact</Link>
             </nav>
         </header>
         {children}
