@@ -1,6 +1,6 @@
 import "./globals.css";
-import Link from "next/link";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Open_Sans } from "next/font/google";
 import Header from "@/component/Header";
 import Footer from "@/component/Footer";
@@ -19,10 +19,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={sans.className}>
-      <body className={sans.className}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+      <body className="flex flex-col w-full max-w-screen-2xl mx-auto">
+        <header className="flex justify-between items-center p-4 w-full">
+          <Link href="/">
+            <h1 className="text-3xl font-bold">{"Hong's Blog"}</h1>
+          </Link>
+          <nav className="flex gap-4">
+            <Link href="/">home</Link>
+            <Link href="/about">about</Link>
+            <Link href="/posts">posts</Link>
+            <Link href="/contact">contact</Link>
+          </nav>
+        </header>
+        <main className="grow bg-sky-400">{children}</main>
+        <p className="bg-slate-900 text-white py-2 text-sm text-center">
+          {"Don't forget to CODE your DREAM | All Right Reserved."}
+        </p>
       </body>
     </html>
   );
