@@ -1,4 +1,4 @@
-import PostCard from "../components/PostCard";
+import PostCard from "../components/FeaturedPosts";
 import Profile from "@/components/Profile";
 
 

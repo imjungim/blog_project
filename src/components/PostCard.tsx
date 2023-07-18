@@ -1,32 +1,30 @@
+import React from "react";
+import Link from "next/link";
 import Image from "next/image";
-import PostsGrid from "./PostsGrid";
-import { getAllPosts } from "@/service/posts";
+import { Post } from "@/service/posts";
 
-//모든 포스트 데이터 보여주기
-export default async function PostCard() {
-  //포스트 데이터 읽어오기
-  const posts = await getAllPosts()
+type Props = { post: Post };
+
+export default function PostCard({
+  post: { title, description, date, category, path },
+}: Props) {
   return (
-    <section>
-      <h2>Featured Posts</h2>
-      <PostsGrid posts={posts}/>
-      {/* <div className="w-1/5 h-80 shadow-lg p-4 bg-gray-300">
-        <div className="">
-          <Image
-            src="https://gogumafarm.kr/wp-content/uploads/2023/06/%EC%B9%B4%ED%88%B0%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%8C%8C%EC%9B%8C%ED%8D%BC%ED%94%84%EA%B1%B8-700x392.png"
-            alt="인터넷에서 가져온 이미지"
-            width={300}
-            height={300}
-            className="object-cover"
-          />
-          <p>2023-07-13</p>
+    <Link href={`/posts/${path}`}>
+      <article className="rounded-me overflow-hidden shadow-lg">
+        <Image
+          className="w-full"
+          src={`/images/posts/${path}.png`}
+          alt={title}
+          width={300}
+          height={200}
+        />
+        <div className="flex flex-col items-center p-4">
+          <time className="self-end">{date.toString()}</time>
+          <h3 className=" text-lg font-bold">{title}</h3>
+          <p className="w-full truncate text-center">{description}</p>
+          <span className="text-sm rounded-lg bg-green-100 px-2 my-2">{category}</span>
         </div>
-        <div>
-          <h4>Post 글제목</h4>
-          <p>description</p>
-          <span className="p-1 bg-green-100">category</span>
-        </div>
-      </div> */}
-    </section>
+      </article>
+    </Link>
   );
 }
