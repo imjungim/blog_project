@@ -1,5 +1,6 @@
 import path from "path";
 import { readFile } from "fs/promises";
+import { getAllJSDocTags } from "typescript";
 
 export type Post = {
   title: string;
@@ -9,6 +10,11 @@ export type Post = {
   path: string;
   featured: boolean;
 };
+
+//featured -> true인 아이템만 filtering
+export async function getFeaturedPosts(): Promise<Post[]> {
+    return getAllPosts().then(posts => posts.filter((post)=> post.featured))
+}
 
 export async function getAllPosts(): Promise<Post[]> {
   const filePath = path.join(process.cwd(), "data", "posts.json"); //json 파일경로 생성
