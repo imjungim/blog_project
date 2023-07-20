@@ -1,6 +1,6 @@
 import path from "path";
 import { readFile } from "fs/promises";
-import { getAllJSDocTags } from "typescript";
+
 
 export type Post = {
   title: string;
