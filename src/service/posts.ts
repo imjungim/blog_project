@@ -1,7 +1,6 @@
 import path from "path";
 import { readFile } from "fs/promises";
 
-
 export type Post = {
   title: string;
   description: string;
@@ -13,7 +12,12 @@ export type Post = {
 
 //featured -> true인 아이템만 filtering
 export async function getFeaturedPosts(): Promise<Post[]> {
-    return getAllPosts().then(posts => posts.filter((post)=> post.featured))
+  return getAllPosts().then((posts) => posts.filter((post) => post.featured));
+}
+
+//전체 아이템
+export async function getNotFeaturedPosts(): Promise<Post[]> {
+  return getAllPosts().then((posts) => posts.filter((post) => !post.featured));
 }
 
 export async function getAllPosts(): Promise<Post[]> {
