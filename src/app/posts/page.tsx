@@ -1,15 +1,14 @@
+
+import FilterablePosts from "@/components/FilterablePosts";
 import PostsGrid from "@/components/PostsGrid";
 import { getAllPosts } from "@/service/posts";
 import React from "react";
 
-export default async function Posts() {
+export default async function PostsPage() {
   const posts = await getAllPosts();
-  console.log(posts);
+  //Set을 통해 중복없이 고유한 category만 배열로 생성
+  const categories = [...new Set(posts.map(post => post.category))]
   return (
-    <section>
-      <div className="w-4/5 p-4">
-        <PostsGrid posts={posts} />
-      </div>
-    </section>
+    <FilterablePosts posts={posts} categories={categories}/>
   );
 }
