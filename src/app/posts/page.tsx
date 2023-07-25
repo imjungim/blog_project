@@ -1,7 +1,15 @@
-import React from 'react'
+import PostsGrid from "@/components/PostsGrid";
+import { getAllPosts } from "@/service/posts";
+import React from "react";
 
-export default function Posts() {
+export default async function Posts() {
+  const posts = await getAllPosts();
+  console.log(posts);
   return (
-    <div>Posts Page입니다.</div>
-  )
+    <section>
+      <div className="w-4/5 p-4">
+        <PostsGrid posts={posts} />
+      </div>
+    </section>
+  );
 }
