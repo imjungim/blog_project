@@ -1,8 +1,5 @@
 import { getPostData } from "@/service/posts";
 import React from "react";
-import ReactMarkdown from "react-markdown";
-import ReactDom from "react-dom";
-import remarkGfm from "remark-gfm";
 import MarkdownViewer from "@/components/MarkdownViewer";
 
 type Props = {
