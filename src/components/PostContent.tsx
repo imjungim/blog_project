@@ -1,6 +1,6 @@
 import React from "react";
 import { PostData } from '@/service/posts';
-import MarkdownViewer from "@/component s/MarkdownViewer";
+import MarkdownViewer from "@/components/MarkdownViewer";
 import { SlCalender } from "react-icons/sl";
 
 export default function PostContent({ post }: { post: PostData }) {
