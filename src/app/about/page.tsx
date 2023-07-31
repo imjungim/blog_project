@@ -1,7 +1,12 @@
-import React from 'react'
+import React from "react";
+import Profile from "@/components/Profile";
+import AboutInfo from "@/components/AboutInfo";
 
 export default function About() {
   return (
-    <div>About Page입니다.</div>
-  )
+    <div>
+      <Profile />
+      <AboutInfo/>
+    </div>
+  );
 }

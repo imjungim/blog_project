@@ -4,7 +4,7 @@ import ProfileImage from "../../public/images/profile.webp";
 
 export default function Profile() {
   return (
-    <section className="text-center">
+    <section className="text-center mb-8">
       <Image
         className="mx-auto rounded-full object-cover"
         src={ProfileImage}
