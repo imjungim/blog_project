@@ -2,6 +2,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { BannerData } from "./Banner";
 import Banner from "./Banner";
+import { sendContactEmail } from "@/service/contact";
 
 type Form = {
   from: string;
@@ -9,12 +10,14 @@ type Form = {
   message: string;
 };
 
+const DEFAULT_DATA = {
+  from: "",
+  subject: "",
+  message: "",
+};
+
 export default function ContactForm() {
-  const [form, setForm] = useState<Form>({
-    from: "",
-    subject: "",
-    message: "",
-  });
+  const [form, setForm] = useState<Form>(DEFAULT_DATA);
   const [banner, setBanner] = useState<BannerData | null>(null);
 
   const onchange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -24,11 +27,20 @@ export default function ContactForm() {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(form);
-    setBanner({ message: "성공!✨", state: "success" });
-    // setTimeout(() => {
-    //   setBanner(null);
-    // }, 2000);
+    
+    sendContactEmail(form)//form data api요청
+      .then(() => {
+        setBanner({ message: "✨메일 보내기 성공!✨", state: "success" });
+      })
+      .catch(() => {
+        setBanner({ message: "❌메일 보내기 실패!❌", state: "error" });
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setBanner(null);
+        }, 2000);
+      });
+    setForm(DEFAULT_DATA);
   };
   return (
     <section className="w-full max-w-md">
@@ -51,7 +63,9 @@ export default function ContactForm() {
           onChange={onchange}
           className="text-black"
         />
-        <label htmlFor="subject" className="text-semibold">Subject</label>
+        <label htmlFor="subject" className="text-semibold">
+          Subject
+        </label>
         <input
           type="text"
           id="subject"
@@ -62,7 +76,9 @@ export default function ContactForm() {
           onChange={onchange}
           className="text-black"
         />
-        <label htmlFor="message" className="text-semibold">Message</label>
+        <label htmlFor="message" className="text-semibold">
+          Message
+        </label>
         <textarea
           rows={10}
           id="message"
@@ -73,7 +89,9 @@ export default function ContactForm() {
           onChange={onchange}
           className="text-black"
         />
-        <button className="bg-yellow-300 text-black font-bold hover:bg-yellow-400 transition-colors">Submit</button>
+        <button className="bg-yellow-300 text-black font-bold hover:bg-yellow-400 transition-colors">
+          Submit
+        </button>
       </form>
     </section>
   );
