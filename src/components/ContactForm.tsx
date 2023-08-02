@@ -28,12 +28,12 @@ export default function ContactForm() {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    sendContactEmail(form)//form data api요청
+    sendContactEmail(form)//클라이언트 -> app 폴더 내 api요청('api/contact')
       .then(() => {
-        setBanner({ message: "✨메일 보내기 성공!✨", state: "success" });
+        setBanner({ message: "메일 보내기 성공!✨", state: "success" });
       })
       .catch(() => {
-        setBanner({ message: "❌메일 보내기 실패!❌", state: "error" });
+        setBanner({ message: "메일 보내기 실패!❌", state: "error" });
       })
       .finally(() => {
         setTimeout(() => {
@@ -53,7 +53,7 @@ export default function ContactForm() {
           Your Email
         </label>
         <input
-          className="text-semibold"
+          className="text-semibold text-black"
           type="email"
           id="from"
           name="from"
@@ -61,7 +61,6 @@ export default function ContactForm() {
           autoFocus
           value={form.from}
           onChange={onchange}
-          className="text-black"
         />
         <label htmlFor="subject" className="text-semibold">
           Subject
