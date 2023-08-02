@@ -8,16 +8,23 @@ const bodySchema = yup.object().shape({
 });
 
 export async function POST(req: Request) {
-  if (!bodySchema.isValidSync(req.body)) {
+  const body = await req.json();
+  if (!bodySchema.isValidSync(body)) {
     return new Response("유효하지 않은 포맷", { status: 400 });
   }
-  const { from, subject, message } = req.body;
   // 노드메일러를 이용해서 메일을 전송하면 됨.
-  return sendEmail(req.body).then(
-    () => new Response(JSON.stringify({message: '메일을 성공적으로 보냄'}), status: 200)
-  ).catch(error => {
-    console.error(error)
-    return new Response
-  })
+  return sendEmail(body)
+    .then(
+      () =>
+        new Response(JSON.stringify({ message: "메일을 성공적으로 보냄" }), {
+          status: 200,
+        })
+    )
+    .catch((error) => {
+      console.error(error);
+
+      return new Response(JSON.stringify({ message: "메일 전송 실패" }), {
+        status: 500,
+      });
+    });
 }
- 
