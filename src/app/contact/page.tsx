@@ -1,9 +1,16 @@
 "use client";
 
 import React from "react";
+import { Metadata } from "next";
 import { useState, useEffect, useCallback } from "react";
 import { AiFillLinkedin, AiFillGithub } from "react-icons/ai";
 import ContactForm from "@/components/ContactForm";
+
+export const metadata: Metadata = {
+  title: 'Contact Me',
+  description: "이메일 보내기",
+};
+
 
 const LINKS = [
   { icon: <AiFillGithub />, url: "https://github.com/imjungim" },
