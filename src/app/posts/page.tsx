@@ -16,3 +16,11 @@ export default async function PostsPage() {
 
   return <FilterablePosts posts={posts} categories={categories} />;
 }
+
+//원하는 slug 페이지를 미리 만들어둘 경우
+export async function generateStaticParams() {
+  const posts = await getNotFeaturedPosts();
+  return posts.map((post) => ({
+    slug: post.path,
+  }));
+}
