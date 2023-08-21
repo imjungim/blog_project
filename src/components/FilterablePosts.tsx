@@ -1,6 +1,6 @@
 "use client";
 import { Post } from "@/service/posts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PostsGrid from "./PostsGrid";
 import Categories from "./Categories";
 import DatePicker from "react-datepicker";
@@ -17,18 +17,42 @@ export default function FilterablePosts({ posts, categories }: Props) {
   const [selected, setSelected] = useState(ALL_POSTS); //기본적으로 모든 포스트가 선택되어 나옴
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
-  console.log(selectedDate.toLocaleString(), endDate )
-  console.log(new Date("2023-08-19").getTime())
-  const filtered =
-    selected === ALL_POSTS
-      ? posts
-      : posts.filter((post) => post.category === selected);
-  console.log(new Date(posts[0].date).getTime())
+  const [filterData, setFilterData] = useState<Post[]>();
+  const [searchInput, setSearchInput] = useState<string>();
+  //console.log(selectedDate.toLocaleString(), endDate )
+  //console.log(new Date("2023-08-19").getTime())
+
+  //console.log(new Date(posts[0].date).getTime())
+  // let filtered =
+  //   selected !== ALL_POSTS
+  //     ? posts.filter((post) => post.category === selected)
+  //     : posts;
+  //filtered -> 검색조건
+  const getFilterData = (e):any => {
+    e.preventDefault();
+    console.log(filterData);
+    if(searchInput !== ''){
+      setFilterData(filterData?.filter((item) => item.title === searchInput))
+    }
+  };
+  console.log(searchInput);
+
+
+  useEffect(() => {
+    if (selected !== ALL_POSTS) {
+      setFilterData(posts.filter((post) => post.category === selected));
+    } else {
+      setFilterData(posts);
+    }
+
+  
+  }, [selected, filterData]);
+
   return (
     <>
-      <section >
-        <form className="flex m-4">
-          <DatePicker
+      <section>
+        <form className="flex m-4" onSubmit={(e) => getFilterData(e) }>
+          {/* <DatePicker
             dateFormat="yyyy-MM-dd" // 날짜 형태
             shouldCloseOnSelect // 날짜를 선택하면 datepicker가 자동으로 닫힘
             //minDate={new Date()} // minDate 이전 날짜 선택 불가
@@ -44,13 +68,18 @@ export default function FilterablePosts({ posts, categories }: Props) {
             //maxDate={new Date()} // maxDate 이후 날짜 선택 불가
             selected={endDate}
             onChange={(date) => setEndDate(date)}
+          /> */}
+          <input
+            type="text"
+            placeholder="제목을 입력하세요"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
-          <input type="text" placeholder="제목을 입력하세요" />
-          <button className="">검색</button>
+          <button>검색</button>
         </form>
       </section>
       <section className="flex m-4">
-        <PostsGrid posts={filtered} />
+        <PostsGrid posts={filterData} />
         <Categories
           categories={[ALL_POSTS, ...categories]}
           selected={selected}
