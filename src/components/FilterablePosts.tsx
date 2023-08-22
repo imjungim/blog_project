@@ -18,7 +18,8 @@ export default function FilterablePosts({ posts, categories }: Props) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [filterData, setFilterData] = useState<Post[]>();
-  const [searchInput, setSearchInput] = useState<string>();
+  const [searchInput, setSearchInput] = useState<string | undefined>();
+
   //console.log(selectedDate.toLocaleString(), endDate )
   //console.log(new Date("2023-08-19").getTime())
 
@@ -28,15 +29,6 @@ export default function FilterablePosts({ posts, categories }: Props) {
   //     ? posts.filter((post) => post.category === selected)
   //     : posts;
   //filtered -> 검색조건
-  const getFilterData = (e):any => {
-    e.preventDefault();
-    console.log(filterData);
-    if(searchInput !== ''){
-      setFilterData(filterData?.filter((item) => item.title === searchInput))
-    }
-  };
-  console.log(searchInput);
-
 
   useEffect(() => {
     if (selected !== ALL_POSTS) {
@@ -44,14 +36,25 @@ export default function FilterablePosts({ posts, categories }: Props) {
     } else {
       setFilterData(posts);
     }
+  }, [selected]);
 
-  
-  }, [selected, filterData]);
+  const getSearchFiltered = (e) => {
+    e.preventDefault();
+
+    console.log(searchInput, filterData);
+    if (searchInput && filterData) {
+      const result = filterData?.filter((item) =>
+        item.title.includes(searchInput)
+      );
+      setFilterData(result);
+    }
+    setSearchInput('')
+  };
 
   return (
     <>
       <section>
-        <form className="flex m-4" onSubmit={(e) => getFilterData(e) }>
+        <form className="flex m-4" onSubmit={getSearchFiltered}>
           {/* <DatePicker
             dateFormat="yyyy-MM-dd" // 날짜 형태
             shouldCloseOnSelect // 날짜를 선택하면 datepicker가 자동으로 닫힘
@@ -76,6 +79,7 @@ export default function FilterablePosts({ posts, categories }: Props) {
             onChange={(e) => setSearchInput(e.target.value)}
           />
           <button>검색</button>
+
         </form>
       </section>
       <section className="flex m-4">
