@@ -1,7 +1,7 @@
 import { Post } from "@/service/posts";
 import PostCard from "./PostCard";
 
-type Props = { posts: Post[] };
+type Props = { posts: Post[] | undefined };
 export default function PostsGrid({ posts }: Props) {
 
   return (
