@@ -7,7 +7,7 @@ export default function Header() {
         <h1 className="text-3xl font-bold">{"Hong's Blog"}</h1>
       </Link>
       <nav className="flex gap-4">
-        <Link href="/">home/test</Link>
+        <Link href="/">home🏠</Link>
         <Link href="/about">about</Link>
         <Link href="/posts">posts</Link>
         <Link href="/contact">contact</Link>
