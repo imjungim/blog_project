@@ -10,7 +10,7 @@ export default function Header() {
         <Link href="/">home🏠</Link>
         <Link href="/about">about📢</Link>
         <Link href="/posts">posts📦</Link>
-        <Link href="/contact">contact</Link>
+        <Link href="/contact">contact💌</Link>
         test
       </nav>
     </header>
